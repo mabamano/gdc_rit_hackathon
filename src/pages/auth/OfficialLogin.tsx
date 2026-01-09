@@ -34,8 +34,8 @@ export default function OfficialLogin({ roleType }: OfficialLoginProps) {
             loginFn: loginStateAdmin,
             redirect: '/state-admin',
             idLabel: 'Admin ID',
-            placeholder: 'ODISHA01',
-            demoId: 'ODISHA01',
+            placeholder: 'TN01',
+            demoId: 'TN01',
             demoPass: 'admin'
         },
         municipal_admin: {

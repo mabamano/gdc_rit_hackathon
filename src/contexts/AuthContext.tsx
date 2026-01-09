@@ -101,13 +101,13 @@ const mockPartners: Record<string, ThirdPartyUser & { password: string }> = {
 };
 
 const mockStateAdmins: Record<string, StateAdmin & { password: string }> = {
-  'ODISHA01': {
+  'TN01': {
     id: 'sa1',
-    adminId: 'ODISHA01',
+    adminId: 'TN01',
     name: 'Rajesh Verma',
     role: 'state_admin',
-    state: 'Odisha',
-    email: 'cm_office@odisha.gov.in',
+    state: 'Tamil Nadu',
+    email: 'cm_office@tn.gov.in',
     password: 'admin',
     createdAt: new Date(),
   },
@@ -119,8 +119,8 @@ const mockMunicipalAdmins: Record<string, MunicipalAdmin & { password: string }>
     adminId: 'MUN001',
     name: 'Sunita Das',
     role: 'municipal_admin',
-    municipality: 'Bhubaneswar',
-    email: 'admin@bmc.gov.in',
+    municipality: 'Chennai',
+    email: 'admin@chennaicorporation.gov.in',
     password: 'admin',
     createdAt: new Date(),
   },

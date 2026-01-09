@@ -71,8 +71,8 @@ export default function RegisterSelector() {
                         <Languages className="w-4 h-4 text-muted-foreground" />
                         <span className="text-sm font-medium">{t('language.odia')}</span>
                         <Switch
-                            checked={language === 'or'}
-                            onCheckedChange={(checked) => setLanguage(checked ? 'or' : 'en')}
+                            checked={language === 'ta'}
+                            onCheckedChange={(checked) => setLanguage(checked ? 'ta' : 'en')}
                             className="data-[state=checked]:bg-green-600"
                         />
                     </div>
@@ -86,7 +86,7 @@ export default function RegisterSelector() {
                                 New User Registration
                             </h2>
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                                Join us in making Odisha cleaner and smarter. Select your role to get started.
+                                Join us in making Tamil Nadu cleaner and smarter. Select your role to get started.
                             </p>
                         </div>
 
