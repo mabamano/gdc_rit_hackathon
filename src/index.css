@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap');
+@import 'leaflet/dist/leaflet.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Odisha Government Theme - Blue, Green, White */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    /* Primary - Odisha Blue */
+    --primary: 207 100% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Eco Green */
+    --secondary: 122 45% 33%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 15% 93%;
+    --muted-foreground: 215 15% 45%;
+
+    /* Accent - Light Blue */
+    --accent: 207 80% 92%;
+    --accent-foreground: 207 100% 35%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Warning - Orange for hazardous */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Success - Green */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 214 20% 88%;
+    --input: 214 20% 88%;
+    --ring: 207 100% 35%;
+
+    --radius: 0.75rem;
+
+    /* Custom waste type colors */
+    --organic: 142 71% 45%;
+    --recyclable: 207 100% 50%;
+    --hazardous: 0 72% 51%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(207 100% 35%) 0%, hsl(207 100% 45%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(122 45% 33%) 0%, hsl(142 71% 45%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(207 100% 35%) 0%, hsl(122 45% 40%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 20% 98%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(215 25% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(215 25% 15% / 0.1), 0 2px 4px -2px hsl(215 25% 15% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(215 25% 15% / 0.1), 0 4px 6px -4px hsl(215 25% 15% / 0.1);
+    --shadow-glow: 0 0 20px hsl(207 100% 35% / 0.3);
+
+    --sidebar-background: 207 100% 35%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 207 100% 35%;
+    --sidebar-accent: 207 100% 40%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 207 100% 45%;
+    --sidebar-ring: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 215 25% 10%;
+    --foreground: 210 20% 98%;
+
+    --card: 215 25% 13%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 215 25% 13%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 207 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 142 71% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 215 20% 20%;
+    --muted-foreground: 215 15% 65%;
+
+    --accent: 207 50% 25%;
+    --accent-foreground: 207 100% 70%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 20% 22%;
+    --input: 215 20% 22%;
+    --ring: 207 100% 50%;
+
+    --sidebar-background: 215 25% 12%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 207 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 25% 18%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 215 20% 22%;
+    --sidebar-ring: 207 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Make sure container actually has height when used */
+  .leaflet-container {
+    height: 100%;
+    width: 100%;
+    min-height: 400px;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50 shadow-lg;
+  }
+
+  .stat-card {
+    @apply bg-card rounded-xl p-6 shadow-md border border-border/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-hero);
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200;
+  }
+
+  .sidebar-item:hover {
+    @apply bg-sidebar-accent;
+  }
+
+  .sidebar-item.active {
+    @apply bg-sidebar-primary text-sidebar-primary-foreground;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+}
