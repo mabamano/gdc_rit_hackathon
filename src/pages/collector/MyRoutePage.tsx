@@ -6,13 +6,13 @@ import { Navigation } from 'lucide-react';
 import RouteMap from '@/components/map/RouteMap';
 
 export default function MyRoutePage() {
-    // Mock lat/lng for Gunupur context
+    // Mock lat/lng for Chennai context
     const routePoints = [
-        { id: 1, address: 'College Road, Store', status: 'Pending', time: '09:00 AM', lat: 19.0790, lng: 83.8180 },
-        { id: 2, address: 'Main Market, Lane 2', status: 'Pending', time: '09:15 AM', lat: 19.0816, lng: 83.8198 },
-        { id: 3, address: 'Bus Stand Area', status: 'Completed', time: '09:30 AM', lat: 19.0830, lng: 83.8210 },
-        { id: 4, address: 'Railway Colony', status: 'Completed', time: '09:45 AM', lat: 19.0850, lng: 83.8220 },
-        { id: 5, address: 'Mains Road, Last Stop', status: 'Pending', time: '10:00 AM', lat: 19.0880, lng: 83.8190 },
+        { id: 1, address: 'Anna Salai, Store', status: 'Pending', time: '09:00 AM', lat: 13.0604, lng: 80.2496 },
+        { id: 2, address: 'T. Nagar, Market Lane', status: 'Pending', time: '09:15 AM', lat: 13.0402, lng: 80.2337 },
+        { id: 3, address: 'CMBT Bus Stand', status: 'Completed', time: '09:30 AM', lat: 13.0694, lng: 80.2081 },
+        { id: 4, address: 'Koyambedu Market', status: 'Completed', time: '09:45 AM', lat: 13.0732, lng: 80.1932 },
+        { id: 5, address: 'Vadapalani, Last Stop', status: 'Pending', time: '10:00 AM', lat: 13.0494, lng: 80.2125 },
     ] as const;
 
     return (
@@ -21,7 +21,7 @@ export default function MyRoutePage() {
                 <div className="flex justify-between items-start">
                     <div>
                         <h1 className="text-2xl md:text-3xl font-display font-bold">My Route</h1>
-                        <p className="text-muted-foreground">Today's assigned collection path: Gunupur West Zone</p>
+                        <p className="text-muted-foreground">Today's assigned collection path: Chennai West Zone</p>
                     </div>
                     <Button className="gap-2">
                         <Navigation className="w-4 h-4" /> Start Navigation
@@ -33,8 +33,8 @@ export default function MyRoutePage() {
                         <Card className="h-[500px] border-2 overflow-hidden">
                             <RouteMap
                                 points={[...routePoints]}
-                                center={[19.0830, 83.8200]}
-                                zoom={15}
+                                center={[13.0604, 80.2496]}
+                                zoom={13}
                             />
                         </Card>
                     </div>

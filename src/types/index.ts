@@ -55,7 +55,7 @@ export interface StateAdmin {
   adminId: string;
   name: string;
   role: 'state_admin';
-  state: string; // e.g. "Odisha"
+  state: string; // e.g. "Tamil Nadu"
   email: string;
   createdAt: Date;
 }
@@ -65,7 +65,7 @@ export interface MunicipalAdmin {
   adminId: string;
   name: string;
   role: 'municipal_admin';
-  municipality: string; // e.g. "Bhubaneswar"
+  municipality: string; // e.g. "Chennai"
   email: string;
   createdAt: Date;
 }
