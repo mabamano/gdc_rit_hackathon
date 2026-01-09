@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app"; // Assuming standard firebase app 
 // The user prompt says "Analyze Firebase waste data... Live Firebase snapshot data".
 // The service functions will take *context data* passed from the components, which fetch from Firebase.
 
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const GEMINI_API_KEY = 'AIzaSyBLj7fNKj5EoZo5NGOkF85EUss2gMUlv5k';
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 const SYSTEM_PROMPT = `You are an AI assistant for the Tamil Nadu Smart Bin Waste Management System.
