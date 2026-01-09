@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowRight, BarChart3, ChevronRight, FileText, Leaf, Recycle, ShieldCheck, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { SmartBinChatbot } from '@/components/SmartBinChatbot';
 
 export default function LandingPage() {
     const { t } = useLanguage();
@@ -179,6 +180,7 @@ export default function LandingPage() {
                     </p>
                 </div>
             </footer>
+            <SmartBinChatbot userRole="PUBLIC" />
         </div>
     );
 }

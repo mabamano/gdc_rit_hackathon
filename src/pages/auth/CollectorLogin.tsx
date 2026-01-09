@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Truck, ArrowLeft, Leaf } from 'lucide-react';
+import { SmartBinChatbot } from '@/components/SmartBinChatbot';
 
 export default function CollectorLogin() {
   const [collectorId, setCollectorId] = useState('');
@@ -120,6 +121,7 @@ export default function CollectorLogin() {
         <Leaf className="w-4 h-4 text-primary" />
         Tamil Nadu Smart Waste 360
       </footer>
+      <SmartBinChatbot userRole="PUBLIC" />
     </div>
   );
 }
