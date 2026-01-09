@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Home, Truck, Building2, Leaf, ArrowRight, Languages, Landmark, Trash2, Map, Recycle } from 'lucide-react';
+import {
+  User, Truck, Users, Globe, Building2, ChevronRight,
+  ShieldCheck, Recycle, Home, Leaf, ArrowRight, Languages, Landmark, Trash2, Map
+} from 'lucide-react';
+import { SmartBinChatbot } from '@/components/SmartBinChatbot';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Switch } from '@/components/ui/switch';
 import {
@@ -244,10 +248,11 @@ export default function LoginSelector() {
 
         {/* Footer */}
         <footer className="p-6 text-center text-sm text-muted-foreground bg-background/50 backdrop-blur-sm border-t border-white/5">
-          <p className="font-medium">{t('footer.hackathon')}</p>
-          <p className="mt-2 text-xs opacity-70">{t('footer.govt')}</p>
+          <div className="text-sm font-medium text-gray-900">Official Municipal Portal</div>
+          <div className="text-xs text-muted-foreground">Authorized Personnel Only</div>
         </footer>
       </div>
+      <SmartBinChatbot userRole="PUBLIC" />
     </div>
   );
 }

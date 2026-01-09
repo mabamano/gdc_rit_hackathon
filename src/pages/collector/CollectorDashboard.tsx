@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Collector } from '@/types';
 import { mockCollectorRoutes } from '@/data/mockData';
 import { Truck, MapPin, CheckCircle, Clock, AlertTriangle, Home, Navigation } from 'lucide-react';
+import { SmartBinChatbot } from '@/components/SmartBinChatbot';
 import { cn } from '@/lib/utils';
 
 export default function CollectorDashboard() {
@@ -190,6 +191,12 @@ export default function CollectorDashboard() {
           </CardContent>
         </Card>
       </div>
+      <SmartBinChatbot
+        userRole="COLLECTOR"
+        userUid={user?.id}
+        assignedWard={collector?.assignedWard}
+        contextData={{ todayRoutes, completedPickups, totalHouses, completedCount }}
+      />
     </DashboardLayout>
   );
 }

@@ -53,8 +53,8 @@ export function StatCard({
   };
 
   return (
-    <Card 
-      variant="stat" 
+    <Card
+      variant="stat"
       className={cn(
         "p-6 animate-fade-in",
         variants[variant],

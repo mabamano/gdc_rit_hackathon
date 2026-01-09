@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Building2, ArrowLeft, Leaf } from 'lucide-react';
+import { SmartBinChatbot } from '@/components/SmartBinChatbot';
 
 export default function OfficerLogin() {
   const [officerId, setOfficerId] = useState('');
@@ -121,6 +122,7 @@ export default function OfficerLogin() {
         <Leaf className="w-4 h-4 text-secondary" />
         Tamil Nadu Smart Waste 360 - Municipal Administration
       </footer>
+      <SmartBinChatbot userRole="PUBLIC" />
     </div>
   );
 }
