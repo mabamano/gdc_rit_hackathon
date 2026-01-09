@@ -14,7 +14,7 @@ export default function HouseholdLogin() {
   const [houseNumber, setHouseNumber] = useState('');
   const [pin, setPin] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const { loginHousehold } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -25,7 +25,7 @@ export default function HouseholdLogin() {
 
     try {
       const success = await loginHousehold(wardNumber, streetNumber, houseNumber, pin);
-      
+
       if (success) {
         toast({
           title: "Welcome!",
@@ -72,7 +72,7 @@ export default function HouseholdLogin() {
               Enter your ward, street, and house details to access your dashboard
             </CardDescription>
           </CardHeader>
-          
+
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -97,7 +97,7 @@ export default function HouseholdLogin() {
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="house">House Number (Holding No.)</Label>
                 <Input
@@ -108,7 +108,7 @@ export default function HouseholdLogin() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="pin">4-Digit PIN</Label>
                 <Input
@@ -122,18 +122,18 @@ export default function HouseholdLogin() {
                 />
               </div>
             </CardContent>
-            
+
             <CardFooter className="flex flex-col gap-4">
-              <Button 
-                type="submit" 
-                variant="success" 
-                size="lg" 
+              <Button
+                type="submit"
+                variant="success"
+                size="lg"
                 className="w-full"
                 disabled={isLoading}
               >
                 {isLoading ? 'Logging in...' : 'Login to Dashboard'}
               </Button>
-              
+
               <p className="text-sm text-muted-foreground text-center">
                 Demo: W01, S01, H001, PIN: 1234
               </p>
@@ -145,7 +145,7 @@ export default function HouseholdLogin() {
       {/* Footer */}
       <footer className="p-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
         <Leaf className="w-4 h-4 text-success" />
-        Odisha Smart Waste 360
+        Tamil Nadu Smart Waste 360
       </footer>
     </div>
   );

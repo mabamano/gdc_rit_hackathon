@@ -6,13 +6,13 @@ import { Badge } from '@/components/ui/badge';
 import { SmartBin } from '@/types';
 import { MapPin, Trash2, AlertTriangle, CheckCircle } from 'lucide-react';
 
-// Mock bin data for Gunupur, Odisha
+// Mock bin data for Chennai, Tamil Nadu
 const mockBins: SmartBin[] = [
   {
     id: '1',
     binId: 'BIN001',
     wardNumber: 'W01',
-    location: { lat: 19.0816, lng: 83.8198, address: 'Gunupur Main Market' },
+    location: { lat: 13.0827, lng: 80.2707, address: 'Chennai Main Market' },
     fillLevel: 85,
     wasteType: 'mixed',
     lastUpdated: new Date(),
@@ -22,7 +22,7 @@ const mockBins: SmartBin[] = [
     id: '2',
     binId: 'BIN002',
     wardNumber: 'W01',
-    location: { lat: 19.0830, lng: 83.8210, address: 'Bus Stand Road' },
+    location: { lat: 13.0694, lng: 80.2081, address: 'CMBT Bus Stand' },
     fillLevel: 45,
     wasteType: 'organic',
     lastUpdated: new Date(),
@@ -32,7 +32,7 @@ const mockBins: SmartBin[] = [
     id: '3',
     binId: 'BIN003',
     wardNumber: 'W02',
-    location: { lat: 19.0790, lng: 83.8180, address: 'College Square' },
+    location: { lat: 13.0104, lng: 80.2356, address: 'Anna University Area' },
     fillLevel: 92,
     wasteType: 'recyclable',
     lastUpdated: new Date(),
@@ -42,7 +42,7 @@ const mockBins: SmartBin[] = [
     id: '4',
     binId: 'BIN004',
     wardNumber: 'W02',
-    location: { lat: 19.0850, lng: 83.8220, address: 'Railway Station Area' },
+    location: { lat: 13.0827, lng: 80.2755, address: 'Chennai Central Station' },
     fillLevel: 30,
     wasteType: 'mixed',
     lastUpdated: new Date(),
@@ -52,7 +52,7 @@ const mockBins: SmartBin[] = [
     id: '5',
     binId: 'BIN005',
     wardNumber: 'W03',
-    location: { lat: 19.0750, lng: 83.8150, address: 'River View Road' },
+    location: { lat: 13.0012, lng: 80.2565, address: 'Adyar River View' },
     fillLevel: 72,
     wasteType: 'organic',
     lastUpdated: new Date(),
@@ -62,7 +62,7 @@ const mockBins: SmartBin[] = [
     id: '6',
     binId: 'BIN006',
     wardNumber: 'W03',
-    location: { lat: 19.0780, lng: 83.8250, address: 'Temple Street' },
+    location: { lat: 13.0336, lng: 80.2698, address: 'Mylapore Temple Street' },
     fillLevel: 15,
     wasteType: 'hazardous',
     lastUpdated: new Date(),
@@ -72,7 +72,7 @@ const mockBins: SmartBin[] = [
     id: '7',
     binId: 'BIN007',
     wardNumber: 'W04',
-    location: { lat: 19.0880, lng: 83.8190, address: 'New Colony' },
+    location: { lat: 13.0850, lng: 80.2100, address: 'Anna Nagar New Colony' },
     fillLevel: 95,
     wasteType: 'mixed',
     lastUpdated: new Date(),
@@ -82,7 +82,7 @@ const mockBins: SmartBin[] = [
     id: '8',
     binId: 'BIN008',
     wardNumber: 'W05',
-    location: { lat: 19.0820, lng: 83.8280, address: 'Industrial Estate' },
+    location: { lat: 13.0163, lng: 80.2155, address: 'Guindy Industrial Estate' },
     fillLevel: 55,
     wasteType: 'recyclable',
     lastUpdated: new Date(),
@@ -103,7 +103,7 @@ const BinMapPage = () => {
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-foreground">Live Bin Map</h1>
-          <p className="text-muted-foreground">Real-time bin status across Gunupur</p>
+          <p className="text-muted-foreground">Real-time bin status across Chennai</p>
         </div>
 
         {/* Stats Row */}

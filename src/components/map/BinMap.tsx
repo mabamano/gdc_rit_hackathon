@@ -32,7 +32,7 @@ const getFillColor = (fillLevel: number): string => {
 
 const BinMap: React.FC<BinMapProps> = ({
   bins,
-  center = [19.0816, 83.8198], // Gunupur default
+  center = [13.0827, 80.2707], // Chennai default
   zoom = 14,
   onBinClick
 }) => {

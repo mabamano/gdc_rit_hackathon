@@ -12,7 +12,7 @@ export default function OfficerLogin() {
   const [officerId, setOfficerId] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const { loginOfficer } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -23,7 +23,7 @@ export default function OfficerLogin() {
 
     try {
       const success = await loginOfficer(officerId, password);
-      
+
       if (success) {
         toast({
           title: "Welcome!",
@@ -70,7 +70,7 @@ export default function OfficerLogin() {
               Access the administrative dashboard for waste management oversight
             </CardDescription>
           </CardHeader>
-          
+
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               <div className="space-y-2">
@@ -83,7 +83,7 @@ export default function OfficerLogin() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <Input
@@ -96,18 +96,18 @@ export default function OfficerLogin() {
                 />
               </div>
             </CardContent>
-            
+
             <CardFooter className="flex flex-col gap-4">
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 variant="secondary"
-                size="lg" 
+                size="lg"
                 className="w-full"
                 disabled={isLoading}
               >
                 {isLoading ? 'Logging in...' : 'Login to Dashboard'}
               </Button>
-              
+
               <p className="text-sm text-muted-foreground text-center">
                 Demo: ID: OFF001, Password: admin123
               </p>
@@ -119,7 +119,7 @@ export default function OfficerLogin() {
       {/* Footer */}
       <footer className="p-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
         <Leaf className="w-4 h-4 text-secondary" />
-        Odisha Smart Waste 360 - Municipal Administration
+        Tamil Nadu Smart Waste 360 - Municipal Administration
       </footer>
     </div>
   );

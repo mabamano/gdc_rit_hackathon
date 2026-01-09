@@ -32,7 +32,7 @@ interface RouteMapProps {
 
 const RouteMap: React.FC<RouteMapProps> = ({
     points,
-    center = [20.2961, 85.8245], // Bhubaneswar
+    center = [13.0827, 80.2707], // Chennai
     zoom = 14
 }) => {
     const mapContainerRef = useRef<HTMLDivElement>(null);

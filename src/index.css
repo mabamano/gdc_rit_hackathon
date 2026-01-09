@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap');
-@import 'leaflet/dist/leaflet.css';
+
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    /* Odisha Government Theme - Blue, Green, White */
+    /* Tamil Nadu Government Theme - Blue, Green, White */
     --background: 210 20% 98%;
     --foreground: 215 25% 15%;
 
@@ -17,7 +17,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
 
-    /* Primary - Odisha Blue */
+    /* Primary - Tamil Nadu Blue */
     --primary: 207 100% 35%;
     --primary-foreground: 0 0% 100%;
 

@@ -9,7 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export default function LandingPage() {
     const { t } = useLanguage();
 
-    // CPCB Data for Odisha (2021-22)
+    // TNPCB Data for Tamil Nadu (2023-24)
     const annualStats = [
         { label: 'Total Waste Generated', value: '2,103 TPD', change: 'Total MSW', icon: BarChart3, color: 'text-blue-600', bg: 'bg-blue-100' },
         { label: 'Collection Efficiency', value: '96%', change: '2,020 TPD Collected', icon: Users, color: 'text-green-600', bg: 'bg-green-100' },
@@ -41,10 +41,10 @@ export default function LandingPage() {
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="max-w-3xl mx-auto text-center space-y-8">
                         <Badge variant="outline" className="px-4 py-1.5 text-sm border-primary/20 bg-primary/5 text-primary rounded-full">
-                            Official Waste Management Portal of Odisha
+                            Official Waste Management Portal of Tamil Nadu
                         </Badge>
                         <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-7xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900">
-                            Building a Cleaner <span className="text-primary">Odisha</span>, Together.
+                            Building a Cleaner <span className="text-primary">Tamil Nadu</span>, Together.
                         </h1>
                         <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
                             Empowering citizens, collectors, and officials with smart technology for efficient waste segregation, collection, and recycling.
@@ -75,7 +75,7 @@ export default function LandingPage() {
                     <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div>
                             <h2 className="text-3xl font-display font-bold mb-2">State Waste Management Report</h2>
-                            <p className="text-muted-foreground">Key highlights from the CPCB Annual Report 2021-22 for Odisha State</p>
+                            <p className="text-muted-foreground">Key highlights from the TNPCB Annual Report 2023-24 for Tamil Nadu</p>
                         </div>
                         <Button variant="outline" className="gap-2">
                             <FileText className="w-4 h-4" /> Download Full Report
@@ -167,7 +167,7 @@ export default function LandingPage() {
                         <span className="font-bold text-lg">Smart Waste 360</span>
                     </div>
                     <p className="text-muted-foreground text-sm mb-6">
-                        An initiative by the Government of Odisha | Municipal Administration Department
+                        An initiative by the Government of Tamil Nadu | Municipal Administration Department
                     </p>
                     <div className="flex justify-center gap-6 text-sm text-muted-foreground">
                         <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
@@ -175,7 +175,7 @@ export default function LandingPage() {
                         <a href="#" className="hover:text-primary transition-colors">Contact Support</a>
                     </div>
                     <p className="text-xs text-muted-foreground/50 mt-8">
-                        © 2025 Odisha Smart Waste Management System. All rights reserved.
+                        © 2025 Tamil Nadu Smart Waste Management System. All rights reserved.
                     </p>
                 </div>
             </footer>
