@@ -12,6 +12,7 @@ import { SmartBin } from '@/types';
 import {
     Users, Truck, Trash2, Recycle, TrendingUp, MapPin
 } from 'lucide-react';
+import { SmartBinChatbot } from '@/components/SmartBinChatbot';
 
 export default function MunicipalAdminDashboard() {
     const { user } = useAuth();
@@ -140,6 +141,11 @@ export default function MunicipalAdminDashboard() {
                     </div>
                 </div>
             </div>
+            <SmartBinChatbot
+                userRole="ADMIN"
+                userUid={admin?.id}
+                contextData={{ cityStats, mockBins, selectedBin }}
+            />
         </DashboardLayout>
     );
 }

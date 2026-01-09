@@ -10,6 +10,7 @@ import { mockNotifications, calculateWasteTotals } from '@/data/mockData';
 import { useRealtimeData } from '@/hooks/useRealtimeData';
 import { HouseholdUser } from '@/types';
 import { Trash2, Recycle, AlertTriangle, Award, Calendar, TrendingUp } from 'lucide-react';
+import { SmartBinChatbot } from '@/components/SmartBinChatbot';
 
 
 export default function HouseholdDashboard() {
@@ -128,6 +129,12 @@ export default function HouseholdDashboard() {
           <WasteHistoryTable logs={userLogs} maxItems={5} />
         </div>
       </div>
+      <SmartBinChatbot
+        userRole="HOUSEHOLD"
+        userUid={user?.id}
+        householdId={household?.houseNumber}
+        contextData={{ wasteLogs: userLogs, currentBin, wasteTotals, nextPickupDate: nextPickupDate.toString() }}
+      />
     </DashboardLayout>
   );
 }

@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Home, ArrowLeft, Leaf } from 'lucide-react';
+import { SmartBinChatbot } from '@/components/SmartBinChatbot';
 
 export default function HouseholdLogin() {
   const [wardNumber, setWardNumber] = useState('');
@@ -147,6 +148,7 @@ export default function HouseholdLogin() {
         <Leaf className="w-4 h-4 text-success" />
         Tamil Nadu Smart Waste 360
       </footer>
+      <SmartBinChatbot userRole="PUBLIC" />
     </div>
   );
 }
