@@ -44,6 +44,7 @@ import HouseholdRegister from "./pages/auth/register/HouseholdRegister";
 import CollectorRegister from "./pages/auth/register/CollectorRegister";
 import OfficerRegister from "./pages/auth/register/OfficerRegister";
 import ThirdPartyRegister from "./pages/auth/register/ThirdPartyRegister";
+import ColorConverter from "./pages/tools/ColorConverter";
 
 import StateAdminDashboard from "./pages/admin/StateAdminDashboard";
 import MunicipalAdminDashboard from "./pages/admin/MunicipalAdminDashboard";
@@ -83,6 +84,7 @@ function AppRoutes() {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Index />} />
+      <Route path="/tools/color-converter" element={<ColorConverter />} />
       <Route path="/login" element={<LoginSelector />} />
       <Route path="/login/household" element={<HouseholdLogin />} />
       <Route path="/login/collector" element={<CollectorLogin />} />
