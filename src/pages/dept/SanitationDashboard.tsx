@@ -11,6 +11,8 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import WasteHeatmap from '@/components/admin/WasteHeatmap';
+import { OfficerAIAssistant } from '@/components/officer/OfficerAIAssistant';
 
 export default function SanitationDashboard() {
     const { user } = useAuth();
@@ -64,41 +66,18 @@ export default function SanitationDashboard() {
                     />
                 </div>
 
-                {/* Map Section */}
-                <Card className="border-border">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <MapPin className="w-5 h-5 text-primary" />
-                            Live Bin Monitoring
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="h-[400px] w-full bg-muted/20 rounded-lg overflow-hidden border border-border">
-                            <BinMap
-                                bins={mockBins}
-                                onBinClick={setSelectedBin}
-                            />
-                        </div>
-                        {selectedBin && (
-                            <div className="mt-4 p-4 bg-accent/10 rounded-lg border border-accent/20 flex items-center justify-between">
-                                <div>
-                                    <p className="font-semibold">Bin #{selectedBin.binId}</p>
-                                    <p className="text-sm text-muted-foreground">{selectedBin.location.address}</p>
-                                </div>
-                                <Badge variant={selectedBin.fillLevel > 90 ? "destructive" : "secondary"}>
-                                    {selectedBin.fillLevel}% Full
-                                </Badge>
-                            </div>
-                        )}
-                    </CardContent>
-                </Card>
+                {/* AI & Map Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                    <WasteHeatmap />
+                    <OfficerAIAssistant />
+                </div>
 
-                {/* Live Bin Status Feed (Mock) - Moved below map */}
-                <Card className="col-span-1 lg:col-span-2">
+                {/* Critical Status Feed */}
+                <Card className="col-span-1">
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Trash2 className="w-5 h-5 text-primary" />
-                            Critical Bins Status
+                        <CardTitle className="flex items-center gap-2 text-primary">
+                            <Trash2 className="w-5 h-5" />
+                            Operations Feed
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -106,18 +85,18 @@ export default function SanitationDashboard() {
                             {overflowBins.length === 0 ? (
                                 <p className="text-muted-foreground">No bins currently require immediate attention.</p>
                             ) : (
-                                overflowBins.map((bin, i) => (
-                                    <div key={i} className="flex items-center justify-between p-4 border rounded-lg bg-destructive/5 border-destructive/20">
+                                overflowBins.slice(0, 3).map((bin, i) => (
+                                    <div key={i} className="flex items-center justify-between p-4 border rounded-xl bg-destructive/5 border-destructive/10 transition-colors hover:bg-destructive/10">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center">
-                                                <Trash2 className="w-5 h-5 text-destructive" />
+                                            <div className="w-10 h-10 rounded-full bg-destructive/20 flex items-center justify-center">
+                                                <AlertTriangle className="w-5 h-5 text-destructive" />
                                             </div>
                                             <div>
-                                                <p className="font-medium">Bin ID: {bin.houseId}</p>
-                                                <p className="text-sm text-muted-foreground">Fill Level: {bin.fillLevel}%</p>
+                                                <p className="font-semibold text-sm">Zone 12 - Bin #{bin.houseId}</p>
+                                                <p className="text-xs text-muted-foreground">Status: {bin.status} ({bin.fillLevel}%)</p>
                                             </div>
                                         </div>
-                                        <Badge variant="destructive">{bin.status}</Badge>
+                                        <Badge variant="destructive" className="animate-pulse">URGENT</Badge>
                                     </div>
                                 ))
                             )}

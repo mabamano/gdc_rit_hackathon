@@ -5,14 +5,16 @@ import { StatCard } from '@/components/dashboard/StatCard';
 import { WasteChart } from '@/components/charts/WasteChart';
 import { WastePieChart } from '@/components/charts/WastePieChart';
 import { WardPerformanceChart } from '@/components/charts/WardPerformanceChart';
-import { MunicipalAdmin } from '@/types';
 import { cityStats, mockBins } from '@/data/mockData';
-import BinMap from '@/components/map/BinMap';
-import { SmartBin } from '@/types';
-import {
-    Users, Truck, Trash2, Recycle, TrendingUp, MapPin
-} from 'lucide-react';
+import { Trash2, AlertTriangle, MapPin, CheckCircle, TrendingUp, Users, Truck, Calendar } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
+import WasteHeatmap from '@/components/admin/WasteHeatmap';
+import { OfficerAIAssistant } from '@/components/officer/OfficerAIAssistant';
 import { SmartBinChatbot } from '@/components/SmartBinChatbot';
+import { MunicipalAdmin, SmartBin } from '@/types';
 
 export default function MunicipalAdminDashboard() {
     const { user } = useAuth();
@@ -36,6 +38,7 @@ export default function MunicipalAdminDashboard() {
 
                 {/* City Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {/* ... existing stats ... */}
                     <StatCard
                         title="Total Waste Today"
                         value={`${(cityStats.totalWasteToday / 1000).toFixed(1)} tons`}
@@ -50,19 +53,41 @@ export default function MunicipalAdminDashboard() {
                         icon={TrendingUp}
                         variant="success"
                     />
+
+                    {/* New Festival Alert Card */}
+                    <Card className="bg-gradient-to-br from-purple-50 to-white border-l-4 border-l-purple-500 shadow-sm">
+                        <CardHeader className="pb-2">
+                            <CardTitle className="text-sm font-medium text-muted-foreground flex justify-between items-center">
+                                Festival Alert
+                                <Calendar className="w-4 h-4 text-purple-600" />
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold text-purple-700">Pongal Surge</div>
+                            <p className="text-xs text-muted-foreground mt-1">Predicted: +25% Organic Waste</p>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="mt-3 w-full text-xs h-7 border-purple-200 hover:bg-purple-100 text-purple-700"
+                                onClick={async () => {
+                                    const { PredictionService } = await import('@/services/predictionService');
+                                    const prediction = PredictionService.predictSurge();
+                                    if (prediction.festival) {
+                                        PredictionService.createCalendarAlert(prediction.festival);
+                                    }
+                                }}
+                            >
+                                Set Calendar Alert
+                            </Button>
+                        </CardContent>
+                    </Card>
+
                     <StatCard
                         title="Active Collectors"
                         value={cityStats.activeCollectors}
                         subtitle="On duty today"
                         icon={Truck}
                         variant="warning"
-                    />
-                    <StatCard
-                        title="Recycling Rate"
-                        value={`${cityStats.recyclingRate}%`}
-                        subtitle="Target: 50%"
-                        icon={Recycle}
-                        variant="secondary"
                     />
                 </div>
 
@@ -78,66 +103,68 @@ export default function MunicipalAdminDashboard() {
                 <WardPerformanceChart />
                 <WardPerformanceChart />
 
-                {/* City Map Section */}
-                <div className="space-y-4">
-                    <h2 className="text-xl font-bold font-display flex items-center gap-2">
-                        <MapPin className="w-5 h-5 text-primary" />
-                        Live City Monitoring
-                    </h2>
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div className="lg:col-span-2 bg-card rounded-lg border border-border overflow-hidden shadow-sm">
-                            <BinMap
-                                bins={mockBins}
-                                onBinClick={setSelectedBin}
-                            />
-                        </div>
-                        <div className="space-y-4">
-                            <div className="border border-border rounded-lg p-4 bg-card shadow-sm">
-                                <h3 className="font-semibold mb-2">Selected Bin Details</h3>
-                                {selectedBin ? (
-                                    <div className="space-y-2">
-                                        <div className="flex justify-between">
-                                            <span className="text-muted-foreground text-sm">Bin ID:</span>
-                                            <span className="font-medium">#{selectedBin.binId}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-muted-foreground text-sm">Location:</span>
-                                            <span className="font-medium text-right">{selectedBin.location.address}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-muted-foreground text-sm">Fill Level:</span>
-                                            <span className={`font-medium ${selectedBin.fillLevel > 90 ? 'text-red-500' : 'text-green-500'}`}>
-                                                {selectedBin.fillLevel}%
-                                            </span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-muted-foreground text-sm">Last Update:</span>
-                                            <span className="font-medium text-xs text-right">
-                                                {new Date(selectedBin.lastUpdated).toLocaleString()}
-                                            </span>
-                                        </div>
-                                    </div>
+                {/* AI & Map Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                    <WasteHeatmap />
+                    <OfficerAIAssistant />
+                </div>
+
+                {/* Operations Feed & Quick Stats */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <Card className="lg:col-span-2">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2 text-primary">
+                                <Trash2 className="w-5 h-5" />
+                                Critical Operations Feed
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-4">
+                                {mockBins.filter(b => b.fillLevel > 90).length === 0 ? (
+                                    <p className="text-muted-foreground text-sm italic">No critical bins detected at this moment.</p>
                                 ) : (
-                                    <div className="text-center py-6 text-muted-foreground text-sm">
-                                        Select a bin on the map to view details
-                                    </div>
+                                    mockBins.filter(b => b.fillLevel > 90).slice(0, 4).map((bin, i) => (
+                                        <div key={i} className="flex items-center justify-between p-4 border rounded-xl bg-destructive/5 border-destructive/10 transition-all hover:bg-destructive/10 group">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                    <AlertTriangle className="w-5 h-5 text-destructive" />
+                                                </div>
+                                                <div>
+                                                    <p className="font-semibold text-sm">Zone {i + 1} - Bin #{bin.binId}</p>
+                                                    <p className="text-xs text-muted-foreground">{bin.location.address}</p>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <Badge variant="destructive" className="mb-2 animate-pulse">CRITICAL</Badge>
+                                                <p className="text-xs font-bold text-destructive">{bin.fillLevel}%</p>
+                                            </div>
+                                        </div>
+                                    ))
                                 )}
                             </div>
+                        </CardContent>
+                    </Card>
 
-                            <div className="border border-border rounded-lg p-4 bg-card shadow-sm">
-                                <h3 className="font-semibold mb-2">Quick Stats</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span>Total Bins</span>
-                                        <span className="font-medium">{mockBins.length}</span>
-                                    </div>
-                                    <div className="flex justify-between text-red-500">
-                                        <span>Critical</span>
-                                        <span className="font-medium">{mockBins.filter(b => b.fillLevel >= 90).length}</span>
-                                    </div>
+                    <div className="space-y-6 text-sm">
+                        <Card className="h-full">
+                            <CardHeader>
+                                <CardTitle className="text-lg">Quick Stats</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="flex justify-between items-center p-3 bg-muted/30 rounded-lg">
+                                    <span className="text-muted-foreground">Total Bins Managed</span>
+                                    <span className="font-bold text-lg">{mockBins.length}</span>
                                 </div>
-                            </div>
-                        </div>
+                                <div className="flex justify-between items-center p-3 bg-destructive/10 rounded-lg">
+                                    <span className="text-destructive font-semibold">Immediate Action Required</span>
+                                    <span className="font-bold text-lg text-destructive">{mockBins.filter(b => b.fillLevel >= 90).length}</span>
+                                </div>
+                                <div className="flex justify-between items-center p-3 bg-green-500/10 rounded-lg">
+                                    <span className="text-green-600 font-semibold">Healthy Bins</span>
+                                    <span className="font-bold text-lg text-green-600">{mockBins.filter(b => b.fillLevel < 50).length}</span>
+                                </div>
+                            </CardContent>
+                        </Card>
                     </div>
                 </div>
             </div>

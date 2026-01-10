@@ -8,11 +8,13 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Officer } from '@/types';
 import { cityStats, mockWardStats, mockBinStatuses, mockViolations } from '@/data/mockData';
-import { 
-  Building2, Users, Truck, Trash2, Recycle, AlertTriangle, 
-  TrendingUp, MapPin, Award 
+import {
+  Building2, Users, Truck, Trash2, Recycle, AlertTriangle,
+  TrendingUp, MapPin, Award
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import WasteHeatmap from '@/components/admin/WasteHeatmap';
+import { OfficerAIAssistant } from '@/components/officer/OfficerAIAssistant';
 
 export default function OfficerDashboard() {
   const { user } = useAuth();
@@ -144,16 +146,16 @@ export default function OfficerDashboard() {
                       className={cn(
                         "flex items-center justify-between p-3 rounded-lg",
                         index === 0 ? "bg-warning/10 border border-warning/30" :
-                        index === 1 ? "bg-muted/50" :
-                        index === 2 ? "bg-accent/50" : "bg-card"
+                          index === 1 ? "bg-muted/50" :
+                            index === 2 ? "bg-accent/50" : "bg-card"
                       )}
                     >
                       <div className="flex items-center gap-3">
                         <span className={cn(
                           "w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm",
                           index === 0 ? "bg-warning text-warning-foreground" :
-                          index === 1 ? "bg-muted-foreground/20 text-foreground" :
-                          index === 2 ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
+                            index === 1 ? "bg-muted-foreground/20 text-foreground" :
+                              index === 2 ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
                         )}>
                           {index + 1}
                         </span>
@@ -213,38 +215,11 @@ export default function OfficerDashboard() {
           </Card>
         </div>
 
-        {/* Bin Status Map Placeholder */}
-        <Card variant="stat">
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-primary" />
-              Live Bin Status Map
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-64 bg-accent/30 rounded-lg flex items-center justify-center border-2 border-dashed border-border">
-              <div className="text-center">
-                <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
-                <p className="text-muted-foreground">Interactive city map with bin locations</p>
-                <p className="text-sm text-muted-foreground">Color-coded by fill level</p>
-                <div className="flex items-center justify-center gap-4 mt-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-success" />
-                    <span className="text-xs">Empty</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-warning" />
-                    <span className="text-xs">Partial</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-destructive" />
-                    <span className="text-xs">Full/Overflow</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* AI & Map Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+          <WasteHeatmap />
+          <OfficerAIAssistant />
+        </div>
       </div>
     </DashboardLayout>
   );

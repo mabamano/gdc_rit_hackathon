@@ -122,6 +122,7 @@ const thirdPartyItems: SidebarItem[] = [
 
 export function DashboardSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { role, user, logout } = useAuth();
   const { t, language, setLanguage } = useLanguage();
   const location = useLocation();
@@ -157,55 +158,66 @@ export function DashboardSidebar() {
   };
 
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'or' : 'en');
+    setLanguage(language === 'en' ? 'ta' : 'en');
   };
 
   return (
     <>
       {/* Mobile menu button */}
       <button
-        onClick={() => setIsCollapsed(!isCollapsed)}
-        className="fixed top-4 left-4 z-50 lg:hidden p-2 rounded-lg bg-primary text-primary-foreground shadow-lg"
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+        className="fixed top-4 left-4 z-50 lg:hidden p-2 rounded-xl bg-primary/10 backdrop-blur-md text-primary border border-primary/20 shadow-xl transition-all hover:bg-primary/20"
       >
-        {isCollapsed ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
 
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 h-screen bg-sidebar text-sidebar-foreground transition-all duration-300 flex flex-col",
-          isCollapsed ? "w-64" : "w-0 lg:w-64",
-          "lg:relative shadow-2xl"
+          "fixed left-0 top-0 z-40 h-screen transition-all duration-500 ease-in-out flex flex-col border-r border-white/10 shadow-2xl overflow-hidden",
+          "backdrop-blur-xl bg-sidebar/80",
+          isMobileOpen ? "translate-x-0 w-72" : "-translate-x-full lg:translate-x-0",
+          isCollapsed ? "lg:w-20" : "lg:w-64",
+          "lg:relative lg:translate-x-0"
         )}
       >
-        {/* Logo */}
-        <div className="p-6 border-b border-sidebar-border bg-sidebar-accent/10">
-          <div className="flex items-center gap-3">
+        {/* Logo and Collapse Button */}
+        <div className="p-6 flex items-center justify-between border-b border-white/5">
+          <div className={cn("flex items-center gap-3 transition-all duration-300", isCollapsed && "lg:opacity-0 lg:scale-0 lg:w-0")}>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg shadow-green-900/20">
               <Leaf className="w-6 h-6 text-white" />
             </div>
-            <div>
-              <h1 className="font-display font-bold text-lg leading-tight tracking-tight">{t('app.name')}</h1>
-              <p className="text-xs text-sidebar-foreground/70 font-medium">{t('app.subtitle')}</p>
+            <div className="whitespace-nowrap">
+              <h1 className="font-display font-bold text-lg leading-tight tracking-tight text-sidebar-foreground">{t('app.name')}</h1>
+              <p className="text-[10px] text-sidebar-foreground/60 font-medium uppercase tracking-wider">{t('app.subtitle')}</p>
             </div>
           </div>
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="hidden lg:flex p-1.5 rounded-lg hover:bg-white/5 text-sidebar-foreground/50 hover:text-sidebar-foreground transition-colors"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
         </div>
 
         {/* User info */}
-        <div className="p-4 border-b border-sidebar-border bg-sidebar-accent/5">
-          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-sidebar-accent/50 transition-colors cursor-pointer">
-            <div className="w-10 h-10 rounded-full bg-sidebar-primary/20 flex items-center justify-center border-2 border-sidebar-primary">
-              <span className="text-sm font-bold text-sidebar-primary">{getUserName().charAt(0)}</span>
+        <div className="p-4 border-b border-white/5">
+          <div className={cn(
+            "flex items-center gap-3 p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer overflow-hidden",
+            isCollapsed && "lg:p-1 lg:justify-center"
+          )}>
+            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border-2 border-primary/40 shrink-0">
+              <span className="text-sm font-bold text-primary">{getUserName().charAt(0)}</span>
             </div>
-            <div className="overflow-hidden">
-              <p className="font-semibold text-sm truncate">{getUserName()}</p>
-              <p className="text-xs text-sidebar-foreground/60 truncate">{getRoleLabel()}</p>
+            <div className={cn("transition-all duration-300 flex-1 min-w-0", isCollapsed && "lg:hidden")}>
+              <p className="font-semibold text-sm truncate text-sidebar-foreground">{getUserName()}</p>
+              <p className="text-[11px] text-sidebar-foreground/50 truncate font-medium">{getRoleLabel()}</p>
             </div>
           </div>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto custom-scrollbar">
+        <nav className="flex-1 p-3 space-y-1.5 overflow-y-auto custom-scrollbar">
           {items.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
@@ -215,65 +227,80 @@ export function DashboardSidebar() {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  "sidebar-item group relative overflow-hidden",
-                  isActive && "active font-medium"
+                  "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative",
+                  isActive
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                    : "text-sidebar-foreground/60 hover:bg-white/5 hover:text-sidebar-foreground",
+                  isCollapsed && "lg:justify-center lg:px-0"
                 )}
               >
-                {isActive && (
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-sidebar-primary rounded-r-full" />
+                <Icon className={cn("w-5 h-5 transition-transform duration-300 group-hover:scale-110 shrink-0", isActive && "scale-110")} />
+                <span className={cn("font-medium transition-all duration-300", isCollapsed && "lg:hidden")}>
+                  {t(item.labelKey)}
+                </span>
+                {isActive && !isCollapsed && (
+                  <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary-foreground/50" />
                 )}
-                <Icon className={cn("w-5 h-5 transition-transform duration-200 group-hover:scale-110")} />
-                <span className={cn()}>{t(item.labelKey)}</span>
+
+                {/* Tooltip for collapsed mode */}
+                {isCollapsed && (
+                  <div className="fixed left-24 px-3 py-2 bg-sidebar-foreground text-sidebar bg-black rounded-lg text-xs font-medium opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-50 whitespace-nowrap hidden lg:block">
+                    {t(item.labelKey)}
+                  </div>
+                )}
               </NavLink>
             );
           })}
         </nav>
 
         {/* Bottom actions */}
-        <div className="p-4 border-t border-sidebar-border space-y-2 bg-sidebar-accent/5">
+        <div className="p-4 border-t border-white/5 space-y-2">
           {/* Language Toggle */}
-          {/* Language Toggle (Simple) */}
           <button
             onClick={toggleLanguage}
-            className="flex items-center justify-between px-4 py-2 rounded-lg bg-sidebar-accent/20 border border-sidebar-border/50 cursor-pointer hover:bg-sidebar-accent/40 transition-colors w-full"
+            className={cn(
+              "flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-200 w-full group",
+              isCollapsed && "lg:justify-center lg:px-0"
+            )}
           >
-            <div className="flex items-center gap-2">
-              <Languages className="w-4 h-4 text-sidebar-foreground/70" />
-              <span className="text-sm font-medium">
-                {language === 'en' ? 'English' :
-                  language === 'or' ? 'Odia' :
-                    language === 'hi' ? 'Hindi' :
-                      language === 'bn' ? 'Bengali' : 'Telugu'}
-              </span>
-            </div>
+            <Languages className="w-5 h-5 text-sidebar-foreground/60 group-hover:text-primary transition-colors shrink-0" />
+            <span className={cn("text-sm font-medium transition-all duration-300", isCollapsed && "lg:hidden")}>
+              {t('language.ta')}
+            </span>
           </button>
 
           <NavLink
             to={`/${role}/settings`}
             className={cn(
-              "sidebar-item",
-              location.pathname.includes('/settings') && "active"
+              "flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200",
+              location.pathname.includes('/settings')
+                ? "bg-white/10 text-sidebar-foreground"
+                : "text-sidebar-foreground/60 hover:bg-white/5 hover:text-sidebar-foreground",
+              isCollapsed && "lg:justify-center lg:px-0"
             )}
           >
-            <Settings className="w-5 h-5" />
-            <span>{t('nav.settings')}</span>
+            <Settings className="w-5 h-5 shrink-0" />
+            <span className={cn("text-sm font-medium", isCollapsed && "lg:hidden")}>{t('nav.settings')}</span>
           </NavLink>
 
           <button
             onClick={logout}
-            className="sidebar-item w-full text-left hover:bg-destructive/10 hover:text-destructive transition-colors"
+            className={cn(
+              "flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-400 hover:bg-red-400/10 transition-all duration-200 w-full text-left",
+              isCollapsed && "lg:justify-center lg:px-0"
+            )}
           >
-            <LogOut className="w-5 h-5" />
-            <span>{t('nav.logout')}</span>
+            <LogOut className="w-5 h-5 shrink-0" />
+            <span className={cn("text-sm font-medium", isCollapsed && "lg:hidden")}>{t('nav.logout')}</span>
           </button>
         </div>
       </aside>
 
       {/* Overlay for mobile */}
-      {isCollapsed && (
+      {isMobileOpen && (
         <div
-          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-30 lg:hidden"
-          onClick={() => setIsCollapsed(false)}
+          className="fixed inset-0 bg-black/40 backdrop-blur-md z-30 lg:hidden transition-all duration-500"
+          onClick={() => setIsMobileOpen(false)}
         />
       )}
     </>
