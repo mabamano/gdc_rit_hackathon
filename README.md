@@ -35,6 +35,7 @@
 
 *   **👥 Role-Based Access Control:** tailored dashboards for 4 distinct user types (Household, Collector, Officer, State Admin).
 *   **🤖 AI Smart Assistant:** Built with **Google Gemini**, helping users identify waste types and answer queries in natural language.
+*   **📸 AI Image Analysis:** Uses **Gemini Vision** to auto-classify waste types and assess urgency from photos uploaded by collectors.
 *   **📍 Real-Time Monitoring:** Interactive maps visualizing bin fill-levels, collection routes, and blackspots.
 *   **📱 QR-Based Verification:** Secure digital handshake between household and collector to verify waste pickup.
 *   **🏆 Gamification Engine:** Reward system to encourage consistent waste segregation practices.
@@ -48,7 +49,11 @@
     *   **Authentication:** Secure, seamless user identity management for all roles.
     *   **Firestore:** Real-time NoSQL database for syncing bin status, routes, and user points instantly across devices.
 *   **🧠 Google Gemini AI:**
-    *   Integrated into the **SmartBin Chatbot** to provide intelligent, context-aware responses to user queries about waste policies and sorting guidelines.
+    *   **Multimodal Capabilities:** Uses **Gemini 2.5 Flash** for high-speed image analysis (Vision) to detect hazardous waste and bin overflows from photos.
+    *   **Smart Chat:** Context-aware responses for citizen inquiries.
+*   **🗺️ Google Maps Platform:**
+    *   **Heatmaps:** Visualizes waste generation density and blackspots for strategic resource allocation.
+    *   **Interactive Maps:** Dynamic location tracking for bins and collection vehicles.
 
 ---
 
@@ -112,7 +117,6 @@ graph LR
 ## 8. Future Development 🔮
 
 *   **IoT Integration:** Connecting physical ultrasonic sensors in bins directly to the Firebase backend.
-*   **Computer Vision:** Using Gemini Vision Pro to auto-classify waste from images uploaded by collectors.
 *   **Predictive Logistics:** ML models to predict waste generation spikes during festivals (e.g., Pongal, Diwali).
 *   **Offline Support:** Making the Collector app fully functional in low-network zones using Firestore offline persistence.
 
