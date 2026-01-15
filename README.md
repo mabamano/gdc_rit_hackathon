@@ -121,4 +121,32 @@ graph LR
 *   **Offline Support:** Making the Collector app fully functional in low-network zones using Firestore offline persistence.
 
 ---
+
+## 9. Setup & Installation ⚙️
+
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/your-username/smart-waste-360.git
+    cd smart-waste-360
+    ```
+
+2.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Environment Configuration**
+    *   Create a `.env` file in the root directory.
+    *   Add your Google Gemini API Key:
+        ```env
+        VITE_GEMINI_API_KEY=your_actual_api_key_here
+        ```
+    *   *Note: See `.env.example` for reference.*
+
+4.  **Run Application**
+    ```bash
+    npm run dev
+    ```
+
+---
 *Built with ❤️ for a Cleaner Tamil Nadu.*
