@@ -6,6 +6,7 @@ import { WastePieChart } from '@/components/charts/WastePieChart';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { TrendingUp, TrendingDown, Scale, Leaf } from 'lucide-react';
 import { calculateWasteTotals, mockWasteLogs } from '@/data/mockData';
+import { Leaderboard } from '@/components/gamification/Leaderboard';
 
 export default function StatisticsPage() {
     const wasteTotals = calculateWasteTotals(mockWasteLogs);
@@ -49,6 +50,9 @@ export default function StatisticsPage() {
                         variant="default" // Using default instead of success/destructive for neutral/good metric
                     />
                 </div>
+
+                {/* Leaderboard Section */}
+                <Leaderboard />
 
                 {/* Detailed Charts */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

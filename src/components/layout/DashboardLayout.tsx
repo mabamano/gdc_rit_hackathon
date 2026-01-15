@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { DashboardSidebar } from './DashboardSidebar';
+import { VoiceAssistant } from '@/components/common/VoiceAssistant';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           {children}
         </div>
       </main>
+      <VoiceAssistant />
     </div>
   );
 }

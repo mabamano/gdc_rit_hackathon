@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app"; // Assuming standard firebase app 
 // The user prompt says "Analyze Firebase waste data... Live Firebase snapshot data".
 // The service functions will take *context data* passed from the components, which fetch from Firebase.
 
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const GEMINI_API_KEY = 'AIzaSyBLj7fNKj5EoZo5NGOkF85EUss2gMUlv5k';
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 const SYSTEM_PROMPT = `You are an AI assistant for the Tamil Nadu Smart Bin Waste Management System.
@@ -102,6 +102,56 @@ export const Geminiservice = {
     } catch (error) {
       console.error("Gemini Service Exception:", error);
       return "An underlying error occurred while processing your request.";
+    }
+  },
+
+  analyzeImage: async (base64Image: string, mimeType: string) => {
+    if (!GEMINI_API_KEY) return null;
+
+    try {
+      const prompt = `Analyze this image of waste/garbage. 
+      1. Classify the waste type: 'overflow', 'damage', 'hazardous', 'mixed', or 'other'.
+      2. Assess urgency: 'Low', 'Medium', or 'High'.
+      3. Provide a short description (max 2 sentences).
+      RETURN JSON format: { "issueType": "...", "urgency": "...", "description": "..." }`;
+
+      const contents = [{
+        role: 'user',
+        parts: [
+          { text: prompt },
+          {
+            inlineData: {
+              mimeType: mimeType,
+              data: base64Image
+            }
+          }
+        ]
+      }];
+
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: contents,
+          generationConfig: { temperature: 0.4, maxOutputTokens: 500 } // Lower temp for factual analysis
+        })
+      });
+
+      if (!response.ok) throw new Error(await response.text());
+
+      const data = await response.json();
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      // Extract JSON from markdown code block if present
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
+      return null;
+
+    } catch (error) {
+      console.error("Image Analysis Error:", error);
+      return null;
     }
   }
 };
