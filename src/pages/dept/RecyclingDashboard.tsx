@@ -4,10 +4,11 @@ import { StatCard } from '@/components/dashboard/StatCard';
 import { WastePieChart } from '@/components/charts/WastePieChart';
 import { DepartmentUser } from '@/types';
 import { cityStats, monthlyWasteData } from '@/data/mockData'; // Using cityStats as base
-import {
-    Recycle, Factory, Zap, DollarSign
-} from 'lucide-react';
+import { Recycle, Factory, Zap, DollarSign, AlertTriangle, Trash2 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import WasteHeatmap from '@/components/admin/WasteHeatmap';
+import { OfficerAIAssistant } from '@/components/officer/OfficerAIAssistant';
+import { Badge } from '@/components/ui/badge';
 
 export default function RecyclingDashboard() {
     const { user } = useAuth();
@@ -59,6 +60,12 @@ export default function RecyclingDashboard() {
                         icon={DollarSign}
                         variant="primary"
                     />
+                </div>
+
+                {/* AI & Collection Map Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch my-6">
+                    <WasteHeatmap />
+                    <OfficerAIAssistant />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

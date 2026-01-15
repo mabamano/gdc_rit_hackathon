@@ -1,7 +1,10 @@
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { WasteChart } from '@/components/charts/WasteChart';
-import { Truck, Recycle, Activity, MapPin } from 'lucide-react';
+import { Truck, Recycle, Activity, MapPin, AlertTriangle, Trash2 } from 'lucide-react';
+import WasteHeatmap from '@/components/admin/WasteHeatmap';
+import { OfficerAIAssistant } from '@/components/officer/OfficerAIAssistant';
+import { Badge } from '@/components/ui/badge';
 
 export default function ThirdPartyDashboard() {
     return (
@@ -73,6 +76,12 @@ export default function ThirdPartyDashboard() {
                             </div>
                         </div>
                     </div>
+                </div>
+
+                {/* AI & Collection Map Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch my-6">
+                    <WasteHeatmap />
+                    <OfficerAIAssistant />
                 </div>
             </div>
         </DashboardLayout>

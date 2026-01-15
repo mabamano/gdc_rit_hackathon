@@ -10,10 +10,12 @@ import { mockBins } from '@/data/mockData';
 import { SmartBin } from '@/types';
 import { StateAdmin } from '@/types';
 import { cityStats, mockWardStats } from '@/data/mockData';
-import {
-    Building, Users, TrendingUp, MapPin, Award, Activity
-} from 'lucide-react';
+import { Building, Users, TrendingUp, MapPin, Award, Activity, Trash2, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
+import WasteHeatmap from '@/components/admin/WasteHeatmap';
+import { OfficerAIAssistant } from '@/components/officer/OfficerAIAssistant';
+import { SmartBinChatbot } from '@/components/SmartBinChatbot';
 
 export default function StateAdminDashboard() {
     const { user } = useAuth();
@@ -75,23 +77,11 @@ export default function StateAdminDashboard() {
                     <WastePieChart title="Aggregate Waste Composition" />
                 </div>
 
-                {/* State Map Section */}
-                <Card className="border-border">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <MapPin className="w-5 h-5 text-primary" />
-                            Live State Monitoring
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="h-[500px] w-full bg-muted/20 rounded-lg overflow-hidden border border-border">
-                            <BinMap
-                                bins={mockBins}
-                                onBinClick={setSelectedBin}
-                            />
-                        </div>
-                    </CardContent>
-                </Card>
+                {/* AI Decision Support & State Monitoring */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                    <WasteHeatmap />
+                    <OfficerAIAssistant />
+                </div>
 
                 {/* Municipality Performance (Mocked as Wards for now) */}
                 <Card variant="stat">

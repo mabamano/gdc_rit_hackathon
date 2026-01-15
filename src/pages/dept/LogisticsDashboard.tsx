@@ -3,10 +3,11 @@ import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { DepartmentUser } from '@/types';
 import { cityStats } from '@/data/mockData';
-import {
-    Truck, Map, Clock, Fuel
-} from 'lucide-react';
+import { Truck, Map, Clock, Fuel, AlertTriangle, Trash2 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import WasteHeatmap from '@/components/admin/WasteHeatmap';
+import { OfficerAIAssistant } from '@/components/officer/OfficerAIAssistant';
 
 export default function LogisticsDashboard() {
     const { user } = useAuth();
@@ -56,15 +57,31 @@ export default function LogisticsDashboard() {
                     />
                 </div>
 
+                {/* AI & Fleet Map Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                    <WasteHeatmap />
+                    <OfficerAIAssistant />
+                </div>
+
                 <Card>
                     <CardHeader>
-                        <CardTitle>Live Fleet Status</CardTitle>
+                        <CardTitle className="flex items-center gap-2">
+                            <Truck className="w-5 h-5 text-primary" />
+                            Live Fleet Status
+                        </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="h-[400px] w-full bg-muted/20 rounded-lg border-2 border-dashed border-border flex items-center justify-center flex-col gap-2">
-                            <Map className="w-12 h-12 text-muted-foreground" />
-                            <p className="text-muted-foreground font-medium">Interactive Fleet Map Component</p>
-                            <p className="text-sm text-muted-foreground">Shows real-time location of all {cityStats.activeCollectors} collection vehicles</p>
+                        <div className="space-y-4">
+                            <div className="h-[300px] w-full bg-muted/20 rounded-lg border border-border flex items-center justify-center flex-col gap-2 relative overflow-hidden">
+                                <Map className="w-12 h-12 text-muted-foreground opacity-20" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="text-center p-6 bg-background/80 backdrop-blur-sm rounded-xl border shadow-sm">
+                                        <p className="text-foreground font-semibold">Active Fleet: {cityStats.activeCollectors} Units</p>
+                                        <p className="text-sm text-muted-foreground mt-1">Real-time GPS tracking active for all zones.</p>
+                                        <Badge variant="secondary" className="mt-3">System Online</Badge>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </CardContent>
                 </Card>

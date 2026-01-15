@@ -2,7 +2,8 @@
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Navigation } from 'lucide-react';
+import { Navigation, Zap } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import RouteMap from '@/components/map/RouteMap';
 
 export default function MyRoutePage() {
@@ -30,6 +31,19 @@ export default function MyRoutePage() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2">
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Zap className="w-5 h-5 text-green-600" />
+                                <div>
+                                    <p className="font-semibold text-green-800 text-sm">Smart Route Active</p>
+                                    <p className="text-xs text-green-600">Path optimized for fuel efficiency & bin urgency.</p>
+                                </div>
+                            </div>
+                            <Badge variant="outline" className="bg-white text-green-700 border-green-300">
+                                Saving 1.2L Fuel
+                            </Badge>
+                        </div>
+
                         <Card className="h-[500px] border-2 overflow-hidden">
                             <RouteMap
                                 points={[...routePoints]}

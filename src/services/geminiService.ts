@@ -103,5 +103,55 @@ export const Geminiservice = {
       console.error("Gemini Service Exception:", error);
       return "An underlying error occurred while processing your request.";
     }
+  },
+
+  analyzeImage: async (base64Image: string, mimeType: string) => {
+    if (!GEMINI_API_KEY) return null;
+
+    try {
+      const prompt = `Analyze this image of waste/garbage. 
+      1. Classify the waste type: 'overflow', 'damage', 'hazardous', 'mixed', or 'other'.
+      2. Assess urgency: 'Low', 'Medium', or 'High'.
+      3. Provide a short description (max 2 sentences).
+      RETURN JSON format: { "issueType": "...", "urgency": "...", "description": "..." }`;
+
+      const contents = [{
+        role: 'user',
+        parts: [
+          { text: prompt },
+          {
+            inlineData: {
+              mimeType: mimeType,
+              data: base64Image
+            }
+          }
+        ]
+      }];
+
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: contents,
+          generationConfig: { temperature: 0.4, maxOutputTokens: 500 } // Lower temp for factual analysis
+        })
+      });
+
+      if (!response.ok) throw new Error(await response.text());
+
+      const data = await response.json();
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      // Extract JSON from markdown code block if present
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
+      return null;
+
+    } catch (error) {
+      console.error("Image Analysis Error:", error);
+      return null;
+    }
   }
 };
